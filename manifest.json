@@ -1,0 +1,19 @@
+{
+  "name": "MLBB Academy",
+  "short_name": "MLBB Academy",
+  "description": "Ensiklopedia hero, build, item, emblem, jadwal esport, dan statistik akun Mobile Legends.",
+  "id": "./",
+  "start_url": "./?source=pwa",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F2F0F9",
+  "theme_color": "#101634",
+  "lang": "id",
+  "categories": ["games", "education", "entertainment"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

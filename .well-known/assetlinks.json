@@ -1,1 +1,14 @@
-[{"relation":["delegate_permission/common.handle_all_urls"],"target":{"namespace":"android_app","package_name":"GANTI.DENGAN.PACKAGE.ID","sha256_cert_fingerprints":["GANTI:DENGAN:SHA256:DARI:PLAY:CONSOLE"]}}]
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.bangzvl.mlbbacademy",
+      "sha256_cert_fingerprints": [
+        "22:45:20:63:80:6C:DE:C8:80:39:81:7E:11:11:53:42:38:45:F9:E1:73:F7:DC:01:F0:2B:0F:EC:CA:2F:66:AA"
+      ]
+    }
+  }
+]

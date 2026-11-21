@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin Iklan · MLBB Academy</title>
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#F2F0F9;--ink:#17132E;--muted:#625E7D;--line:#E6E3F1;--card:#fff;--amber:#FFB23F;--violet:#6A4CF5;--violet-soft:#ECE8FF;--night:#101634;--win:#157A43;--win-bg:#E2F6EA;--lose:#A3291A;--lose-bg:#FFE8E4}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:500 15px/1.5 'Plus Jakarta Sans',system-ui,sans-serif}
+  main{max-width:760px;margin:0 auto;padding:28px 18px 80px}
+  h1,h2{font-family:'Bricolage Grotesque',system-ui,sans-serif;letter-spacing:-.02em;margin:0}
+  h1{font-size:34px}
+  h2{font-size:21px}
+  .top{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+  .top img{width:52px;height:52px;border-radius:15px}
+  .lead{color:var(--muted);margin:4px 0 22px}
+  .card{background:var(--card);border-radius:24px;padding:20px;margin-bottom:16px;border:1px solid var(--line)}
+  .dark{background:var(--night);color:#fff;border:0}
+  .dark .muted{color:#B9B6D6}
+  .muted{color:var(--muted);font-size:14px}
+  label{display:block;font-weight:700;margin:14px 0 6px}
+  input[type=password],input[type=text],input[type=number],textarea{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;font:inherit;background:#fff;color:var(--ink)}
+  textarea{min-height:150px;font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;resize:vertical}
+  input:focus,textarea:focus{outline:3px solid var(--violet-soft);border-color:var(--violet)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  button{font:700 15px 'Plus Jakarta Sans',sans-serif;border:0;border-radius:999px;padding:12px 20px;cursor:pointer}
+  button:focus-visible{outline:3px solid var(--violet);outline-offset:2px}
+  .primary{background:var(--amber);color:#2B1600}
+  .ghost{background:var(--violet-soft);color:#3E2FB8}
+  .plain{background:transparent;color:var(--muted);padding:12px 8px}
+  button:disabled{opacity:.5;cursor:default}
+  .slot-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .switch{display:flex;align-items:center;gap:8px;font-weight:700;margin:0;cursor:pointer;white-space:nowrap}
+  .switch input{width:20px;height:20px;accent-color:var(--violet)}
+  .tag{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;background:var(--lose-bg);color:var(--lose);margin-left:6px;vertical-align:middle}
+  .preview{margin-top:12px;border:1.5px dashed var(--line);border-radius:16px;padding:10px;display:none;justify-content:center;background:#FAF9FD}
+  .preview iframe{border:0;width:320px;max-width:100%}
+  .msg{border-radius:16px;padding:12px 16px;margin:0 0 16px;font-weight:600;display:none}
+  .msg.ok{display:block;background:var(--win-bg);color:var(--win)}
+  .msg.err{display:block;background:var(--lose-bg);color:var(--lose)}
+  .msg.info{display:block;background:var(--violet-soft);color:#3E2FB8}
+  ol{padding-left:20px;margin:8px 0}
+  a{color:var(--violet)}
+  .dark a{color:var(--amber)}
+  .savebar{position:sticky;bottom:12px;background:var(--night);color:#fff;border-radius:999px;padding:10px 10px 10px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px;box-shadow:0 14px 40px rgba(16,22,52,.3)}
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><img src="icon-192.png" alt=""><div><h1>Admin iklan</h1></div></div>
+  <p class="lead">Ganti kode iklan Adsterra di aplikasi tanpa membuka GitHub. Perubahan tampil di aplikasi sekitar 1–2 menit setelah disimpan, saat aplikasi dibuka lagi.</p>
+
+  <div id="msg" class="msg" role="status" aria-live="polite"></div>
+
+  <!-- Masuk -->
+  <section id="login" class="card dark">
+    <h2>Masuk</h2>
+    <p class="muted">Admin memakai token GitHub milikmu. Token hanya disimpan di browser ini dan dikirim langsung ke GitHub.</p>
+    <label for="token">Token GitHub</label>
+    <input id="token" type="password" autocomplete="off" placeholder="github_pat_…">
+    <div class="row" style="margin-top:14px">
+      <button class="primary" id="btnLogin">Masuk</button>
+      <label class="switch" style="margin:0"><input type="checkbox" id="remember" checked> Ingat di browser ini</label>
+    </div>
+    <details style="margin-top:16px">
+      <summary style="cursor:pointer;font-weight:700">Cara membuat token (sekali saja)</summary>
+      <ol class="muted">
+        <li>Buka <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a>.</li>
+        <li>Nama token: <b>Admin iklan MLBB Academy</b>. Masa berlaku: misalnya 1 tahun.</li>
+        <li>Repository access: <b>Only select repositories</b> → pilih <b>bangzvl/bangzvl.github.io</b>.</li>
+        <li>Permissions → Repository permissions → <b>Contents: Read and write</b>.</li>
+        <li>Klik <b>Generate token</b>, salin, lalu tempel di kolom di atas.</li>
+      </ol>
+    </details>
+  </section>
+
+  <!-- Pengaturan -->
+  <section id="editor" class="hidden">
+    <div class="card">
+      <div class="slot-head">
+        <div>
+          <h2>Satu kode untuk semua</h2>
+          <p class="muted">Tempel kode Banner 300×250 dari Adsterra, lalu pasang ke semua tempat banner sekaligus.</p>
+        </div>
+      </div>
+      <label for="allCode">Kode iklan</label>
+      <textarea id="allCode" placeholder="<script>&#10;  atOptions = { 'key' : '…', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };&#10;</script>&#10;<script src=&quot;https://…/invoke.js&quot;></script>"></textarea>
+      <div class="row" style="margin-top:12px"><button class="ghost" id="btnAll">Pakai di semua tempat</button></div>
+    </div>
+
+    <div id="slots"></div>
+
+    <div class="savebar">
+      <span id="dirty">Belum ada perubahan</span>
+      <div class="row">
+        <button class="plain" id="btnLogout">Keluar</button>
+        <button class="primary" id="btnSave" disabled>Simpan ke aplikasi</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var OWNER = 'bangzvl', REPO = 'bangzvl.github.io', PATH = 'ads.json', BRANCH = 'main';
+  var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + PATH;
+  var TOKEN_KEY = 'mlbb-academy:admin-token';
+  var SLOTS = [
+    { id: 'sponsor', name: 'Kartu Sponsor', where: 'Beranda, di bawah "Skin terbaru". Membuka Direct Link Adsterra', link: true },
+    { id: 'skin', name: 'Beranda (atas)', where: 'Banner di bawah kartu Sponsor' },
+    { id: 'home', name: 'Beranda (bawah)', where: 'Di bawah "Hero terkuat minggu ini"' },
+    { id: 'hero', name: 'Daftar hero', where: 'Setelah 12 kartu hero' },
+    { id: 'detail', name: 'Halaman hero', where: 'Di bawah build populer' },
+    { id: 'academy', name: 'Academy', where: 'Di bagian bawah' },
+    { id: 'esport', name: 'Esport', where: 'Di bagian bawah' },
+    { id: 'socialbar', name: 'Social Bar', where: 'Melayang di seluruh aplikasi', risky: true },
+    { id: 'popunder', name: 'Popunder', where: 'Membuka iklan saat layar diketuk', risky: true }
+  ];
+  var token = '', sha = null, data = { slots: {} }, saved = '';
+  var $ = function (id) { return document.getElementById(id); };
+
+  function say(text, kind) { var m = $('msg'); m.textContent = text; m.className = 'msg ' + (kind || 'info'); }
+  function hush() { $('msg').className = 'msg'; }
+
+  // Base64 yang aman untuk huruf non-ASCII.
+  function enc(str) { return btoa(unescape(encodeURIComponent(str))); }
+  function dec(b64) { return decodeURIComponent(escape(atob(b64.replace(/\n/g, '')))); }
+
+  function gh(method, body) {
+    return fetch(API + (method === 'GET' ? '?ref=' + BRANCH + '&t=' + Date.now() : ''), {
+      method: method,
+      headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' },
+      body: body ? JSON.stringify(body) : undefined,
+      cache: 'no-store'
+    });
+  }
+
+  // Kode bawaan (yang tertanam di index.html) dipakai bila ads.json belum ada.
+  function defaults() {
+    return fetch('index.html?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.text(); }).then(function (html) {
+      var doc = new DOMParser().parseFromString(html, 'text/html'), out = {};
+      SLOTS.forEach(function (s) {
+        var t = doc.getElementById('ad-' + s.id);
+        if (s.link) { var u = t ? (t.getAttribute('data-url') || '') : ''; out[s.id] = { on: !!u, url: u, title: t ? t.getAttribute('data-title') || '' : '', text: t ? t.getAttribute('data-text') || '' : '' }; return; }
+        var code = t ? t.innerHTML.trim() : '';
+        out[s.id] = { on: !!code, code: code, height: Number(t && t.dataset.height) || 250 };
+      });
+      return { slots: out };
+    });
+  }
+
+  function login() {
+    token = $('token').value.trim();
+    if (!token) { say('Tempel token GitHub dulu.', 'err'); return; }
+    say('Memeriksa token…');
+    gh('GET').then(function (r) {
+      if (r.status === 401 || r.status === 403) throw new Error('Token ditolak GitHub. Pastikan token benar, belum kedaluwarsa, dan punya izin Contents: Read and write untuk repo ' + REPO + '.');
+      if (r.status === 404) { sha = null; return defaults(); }
+      if (!r.ok) throw new Error('GitHub membalas ' + r.status + '. Coba lagi sebentar lagi.');
+      return r.json().then(function (j) { sha = j.sha; return JSON.parse(dec(j.content)); });
+    }).then(function (d) {
+      data = d && d.slots ? d : { slots: {} };
+      if ($('remember').checked) { try { localStorage.setItem(TOKEN_KEY, token); } catch (e) {} }
+      $('login').classList.add('hidden');
+      $('editor').classList.remove('hidden');
+      render();
+      saved = JSON.stringify(collect());
+      markDirty();
+      say(sha ? 'Pengaturan iklan dimuat.' : 'Belum ada pengaturan tersimpan. Kode yang terpasang sekarang sudah dimuat; simpan untuk mulai memakai admin.', 'ok');
+    }).catch(function (e) { say(e.message, 'err'); });
+  }
+
+  function render() {
+    var box = $('slots'); box.innerHTML = '';
+    SLOTS.forEach(function (s) {
+      var v = data.slots[s.id] || { on: false, code: '', height: 250 };
+      var el = document.createElement('div');
+      el.className = 'card';
+      if (s.link) {
+        el.innerHTML =
+          '<div class="slot-head"><div><h2>' + s.name + '</h2><p class="muted" style="margin:2px 0 0">' + s.where + '</p></div>' +
+          '<label class="switch"><input type="checkbox" data-k="on"> Tampilkan</label></div>' +
+          '<p class="muted">Kartu ini selalu diberi label <b>Sponsor</b>. Tulis judul dan teks yang jujur: jangan menjanjikan skin, diamond, atau hadiah gratis, karena Google Play dan Adsterra melarangnya.</p>' +
+          '<label>Link Direct Link Adsterra</label><input type="text" data-k="url" placeholder="https://…" spellcheck="false">' +
+          '<label>Judul kartu</label><input type="text" data-k="title" maxlength="50" placeholder="Penawaran dari sponsor">' +
+          '<label>Teks kartu</label><input type="text" data-k="text" maxlength="90" placeholder="Ketuk untuk melihat penawaran dari sponsor kami.">';
+        el.dataset.slot = s.id;
+        el.querySelector('[data-k=on]').checked = !!v.on;
+        el.querySelector('[data-k=url]').value = v.url || '';
+        el.querySelector('[data-k=title]').value = v.title || '';
+        el.querySelector('[data-k=text]').value = v.text || '';
+        el.addEventListener('input', markDirty);
+        el.addEventListener('change', markDirty);
+        box.appendChild(el);
+        return;
+      }
+      el.innerHTML =
+        '<div class="slot-head"><div><h2>' + s.name + (s.risky ? '<span class="tag">Berisiko di Play Store</span>' : '') + '</h2>' +
+        '<p class="muted" style="margin:2px 0 0">' + s.where + '</p></div>' +
+        '<label class="switch"><input type="checkbox" data-k="on"> Tampilkan</label></div>' +
+        (s.risky ? '<p class="muted">Google Play bisa menolak aplikasi dengan iklan yang muncul tiba-tiba atau membuka halaman lain. Biarkan mati untuk versi Play Store.</p>' : '') +
+        '<label>Kode iklan</label><textarea data-k="code" spellcheck="false"></textarea>' +
+        (s.risky ? '' : '<label>Tinggi kotak iklan (piksel)</label><input type="number" min="50" max="700" data-k="height" style="max-width:160px">') +
+        '<div class="row" style="margin-top:12px"><button class="ghost" data-act="preview">Lihat pratinjau</button><button class="plain" data-act="clear">Kosongkan</button></div>' +
+        '<div class="preview"></div>';
+      el.dataset.slot = s.id;
+      el.querySelector('[data-k=on]').checked = !!v.on;
+      el.querySelector('[data-k=code]').value = v.code || '';
+      var h = el.querySelector('[data-k=height]'); if (h) h.value = v.height || 250;
+      el.addEventListener('input', markDirty);
+      el.addEventListener('change', markDirty);
+      el.querySelector('[data-act=preview]').onclick = function () { preview(el); };
+      el.querySelector('[data-act=clear]').onclick = function () { el.querySelector('[data-k=code]').value = ''; el.querySelector('[data-k=on]').checked = false; markDirty(); };
+      box.appendChild(el);
+    });
+  }
+
+  function preview(el) {
+    var code = el.querySelector('[data-k=code]').value.trim();
+    var p = el.querySelector('.preview');
+    if (!code) { p.style.display = 'none'; say('Kode masih kosong, tidak ada yang bisa dipratinjau.', 'err'); return; }
+    var h = (el.querySelector('[data-k=height]') || {}).value || 250;
+    var f = document.createElement('iframe');
+    f.style.height = h + 'px';
+    f.srcdoc = '<!doctype html><html><head><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;display:flex;justify-content:center}</style></head><body>' + code.replace(/(["'(])\/\//g, '$1https://') + '</body></html>';
+    p.innerHTML = ''; p.appendChild(f); p.style.display = 'flex';
+    hush();
+  }
+
+  function collect() {
+    var out = { slots: {} };
+    document.querySelectorAll('#slots [data-slot]').forEach(function (el) {
+      if (el.querySelector('[data-k=url]')) {
+        out.slots[el.dataset.slot] = {
+          on: el.querySelector('[data-k=on]').checked,
+          url: el.querySelector('[data-k=url]').value.trim(),
+          title: el.querySelector('[data-k=title]').value.trim(),
+          text: el.querySelector('[data-k=text]').value.trim()
+        };
+        return;
+      }
+      var h = el.querySelector('[data-k=height]');
+      out.slots[el.dataset.slot] = {
+        on: el.querySelector('[data-k=on]').checked,
+        code: el.querySelector('[data-k=code]').value.trim(),
+        height: h ? Math.max(50, Math.min(700, Number(h.value) || 250)) : 0
+      };
+    });
+    return out;
+  }
+
+  function markDirty() {
+    var changed = JSON.stringify(collect()) !== saved;
+    $('btnSave').disabled = !changed;
+    $('dirty').textContent = changed ? 'Ada perubahan yang belum disimpan' : 'Semua perubahan sudah tersimpan';
+  }
+
+  function useForAll() {
+    var code = $('allCode').value.trim();
+    if (!code) { say('Tempel kode iklan dulu di kolom "Satu kode untuk semua".', 'err'); return; }
+    ['skin', 'home', 'hero', 'detail', 'academy', 'esport'].forEach(function (id) {
+      var el = document.querySelector('#slots [data-slot="' + id + '"]');
+      el.querySelector('[data-k=code]').value = code;
+      el.querySelector('[data-k=on]').checked = true;
+    });
+    markDirty();
+    say('Kode dipasang ke semua tempat banner. Klik "Simpan ke aplikasi" untuk menerapkannya.', 'ok');
+  }
+
+  function save() {
+    var next = collect();
+    var sp = next.slots.sponsor;
+    if (sp && sp.on && !/^https:\/\/\S+$/i.test(sp.url)) { say('Link Kartu Sponsor harus diawali https:// dan tidak boleh kosong.', 'err'); return; }
+    if (sp && /gratis|free|klaim|claim|diamond|hadiah/i.test(sp.title + ' ' + sp.text)) { say('Judul atau teks Kartu Sponsor menjanjikan hadiah atau barang gratis. Ganti dengan kalimat yang jujur supaya aplikasi tidak ditolak Google Play.', 'err'); return; }
+    var bad = Object.keys(next.slots).filter(function (k) { return k !== 'sponsor' && next.slots[k].on && !next.slots[k].code; });
+    if (bad.length) { say('Tempat "' + bad.join('", "') + '" dinyalakan tapi kodenya kosong. Isi kodenya atau matikan.', 'err'); return; }
+    next.updatedAt = new Date().toISOString();
+    $('btnSave').disabled = true;
+    say('Menyimpan…');
+    var body = { message: 'Admin: perbarui pengaturan iklan', content: enc(JSON.stringify(next, null, 2) + '\n'), branch: BRANCH };
+    if (sha) body.sha = sha;
+    gh('PUT', body).then(function (r) {
+      if (r.status === 409 || r.status === 422) throw new Error('Pengaturan iklan baru saja diubah di tempat lain. Muat ulang halaman ini, lalu ulangi perubahanmu.');
+      if (r.status === 401 || r.status === 403) throw new Error('Token tidak punya izin menulis. Buat token dengan izin Contents: Read and write.');
+      if (!r.ok) throw new Error('Gagal menyimpan (GitHub membalas ' + r.status + ').');
+      return r.json();
+    }).then(function (j) {
+      sha = j.content.sha;
+      data = next;
+      saved = JSON.stringify(collect());
+      markDirty();
+      say('Tersimpan. Iklan baru tampil di aplikasi sekitar 1–2 menit lagi, saat aplikasi dibuka ulang.', 'ok');
+    }).catch(function (e) { markDirty(); say(e.message, 'err'); });
+  }
+
+  function logout() {
+    try { localStorage.removeItem(TOKEN_KEY); } catch (e) {}
+    location.reload();
+  }
+
+  $('btnLogin').onclick = login;
+  $('token').addEventListener('keydown', function (e) { if (e.key === 'Enter') login(); });
+  $('btnAll').onclick = useForAll;
+  $('btnSave').onclick = save;
+  $('btnLogout').onclick = logout;
+  window.addEventListener('beforeunload', function (e) { if (!$('btnSave').disabled) { e.preventDefault(); e.returnValue = ''; } });
+
+  try { var t = localStorage.getItem(TOKEN_KEY); if (t) { $('token').value = t; login(); } } catch (e) {}
+})();
+</script>
+</body>
+</html>

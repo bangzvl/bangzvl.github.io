@@ -1,0 +1,51 @@
+{
+  "slots": {
+    "sponsor": {
+      "on": false,
+      "url": "",
+      "title": "",
+      "text": ""
+    },
+    "skin": {
+      "on": true,
+      "code": "<script>\n  atOptions = {\n    'key' : 'ce05cacd23f3c29e598082c6e7cbeda7',\n    'format' : 'iframe',\n    'height' : 250,\n    'width' : 300,\n    'params' : {}\n  };\n</script>\n<script src=\"https://bauval.org/22/ce05cacd23f3c29e598082c6e7cbeda7\"></script>",
+      "height": 250
+    },
+    "home": {
+      "on": true,
+      "code": "<script>\n  atOptions = {\n    'key' : 'ce05cacd23f3c29e598082c6e7cbeda7',\n    'format' : 'iframe',\n    'height' : 250,\n    'width' : 300,\n    'params' : {}\n  };\n</script>\n<script src=\"https://bauval.org/22/ce05cacd23f3c29e598082c6e7cbeda7\"></script>",
+      "height": 250
+    },
+    "hero": {
+      "on": true,
+      "code": "<script>\n  atOptions = {\n    'key' : 'ce05cacd23f3c29e598082c6e7cbeda7',\n    'format' : 'iframe',\n    'height' : 250,\n    'width' : 300,\n    'params' : {}\n  };\n</script>\n<script src=\"https://bauval.org/22/ce05cacd23f3c29e598082c6e7cbeda7\"></script>",
+      "height": 250
+    },
+    "detail": {
+      "on": true,
+      "code": "<script>\n  atOptions = {\n    'key' : 'ce05cacd23f3c29e598082c6e7cbeda7',\n    'format' : 'iframe',\n    'height' : 250,\n    'width' : 300,\n    'params' : {}\n  };\n</script>\n<script src=\"https://bauval.org/22/ce05cacd23f3c29e598082c6e7cbeda7\"></script>",
+      "height": 250
+    },
+    "academy": {
+      "on": true,
+      "code": "<script>\n  atOptions = {\n    'key' : 'ce05cacd23f3c29e598082c6e7cbeda7',\n    'format' : 'iframe',\n    'height' : 250,\n    'width' : 300,\n    'params' : {}\n  };\n</script>\n<script src=\"https://bauval.org/22/ce05cacd23f3c29e598082c6e7cbeda7\"></script>",
+      "height": 250
+    },
+    "esport": {
+      "on": true,
+      "code": "<script>\n  atOptions = {\n    'key' : 'ce05cacd23f3c29e598082c6e7cbeda7',\n    'format' : 'iframe',\n    'height' : 250,\n    'width' : 300,\n    'params' : {}\n  };\n</script>\n<script src=\"https://bauval.org/22/ce05cacd23f3c29e598082c6e7cbeda7\"></script>",
+      "height": 250
+    },
+    "socialbar": {
+      "on": false,
+      "code": "",
+      "height": 0
+    },
+    "popunder": {
+      "on": false,
+      "code": "",
+      "height": 0
+    }
+  },
+  "updatedAt": "2026-11-21T05:40:00.000Z"
+}
